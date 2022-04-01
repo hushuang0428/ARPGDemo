@@ -1,0 +1,10 @@
+{
+    "ID": 2,
+    "name": 1,
+    "BackGroundStory": "",
+    "PrefabPath": "Prefab/Character/Gobin",
+    "speed": 1.0,
+    "sprintSpeed": 0.0,
+    "Level": 0,
+    "HP": 1
+}

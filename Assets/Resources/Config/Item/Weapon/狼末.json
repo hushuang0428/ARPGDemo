@@ -1,0 +1,16 @@
+{
+    "ID": 0,
+    "name": 0,
+    "type": 0,
+    "BackGroundStory": "",
+    "isused": false,
+    "PrefabPath": "Prefab/Item/Weapon/狼末",
+    "mainAttribute": {
+        "type": 2,
+        "vlaue": 100.0
+    },
+    "secondaryAttribute": {
+        "type": 3,
+        "vlaue": 1.0
+    }
+}

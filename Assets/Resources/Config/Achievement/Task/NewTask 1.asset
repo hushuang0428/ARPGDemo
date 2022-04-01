@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: NewTask 1
+  m_EditorClassIdentifier: Assembly-CSharp::SO_BaseTask
+  ID: 0
+  TaksDescribe: 
+  trigger: {fileID: 11400000, guid: 9fc8687dfee83784793720a849df8ec4, type: 2}
+  finlish: {fileID: 11400000, guid: 9fc8687dfee83784793720a849df8ec4, type: 2}
+  reward: {fileID: 11400000, guid: b0fdf9ed0c2a312469c87b54b2dec122, type: 2}
