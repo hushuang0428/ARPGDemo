@@ -19,7 +19,7 @@ public class ObjectPool : Singleton<ObjectPool>
         if (!objectPool.ContainsKey(spawner.name) || objectPool[spawner.name].Count == 0)
         {
             obj = spawner.Spawner();
-            //obj = GameObject.Instantiate(prefab);
+            
             PushObject(obj);
             if (pool == null) pool = new GameObject(path);
             //GameObject.DontDestroyOnLoad(pool);

@@ -6,8 +6,8 @@ public class ConstPath
 {
     [Header("ConfigPath")]
     public const string CONFIG_WEAPON_DATA = "Resources/Config/Item/Weapon";
-
-
+    public const string CONFIG_MONSTER_DATA = "Resources/Config/Monster";
+    public const string CONFIG_REWARD_TABLE = "Resources/Config/Reward";
 
 
 

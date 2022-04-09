@@ -148,14 +148,15 @@ public class AttackState : IState
     {
         this.character = character;
         
-        
+
+
     }
 
 
     public void OnEnter()
     {
         character.IsAttack = true;
-       
+        character.rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         character.anim.Play("Attack"); 
         CombatTimer = 0.8f;
         
@@ -188,6 +189,8 @@ public class AttackState : IState
     public void OnExit()
     {
         character.IsAttack = false;
+        character.rigidbody.constraints = RigidbodyConstraints.None;
+        character.rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 }
 
@@ -325,14 +328,25 @@ public class MDeadState : IState
 
     public void OnEnter()
     {
-        //monster.baseData.currHP = 0;
+        monster.bt.enabled = false;
+
+        
         Debug.Log("Monster dead");
-        GameObject.Destroy(monster.gameObject);
+
+        monster.anim.Play("Death");
+
+        
     }
 
     public void OnUpDate()
     {
-        
+        if(monster.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99f)
+        {
+            
+            RewardMgr.Instance.GetReward(monster);
+
+            ObjectPool.Instance.PushObject(monster.gameObject);
+        }
     }
 
     public void OnExit()
@@ -354,7 +368,7 @@ public class MGetHitState : IState
 
     public void OnEnter()
     {
-
+        monster.anim.StopPlayback();
         monster.anim.Play("GetHit");
 
     }

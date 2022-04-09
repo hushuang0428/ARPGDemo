@@ -1,0 +1,19 @@
+{
+    "keys": [
+        0
+    ],
+    "values": [
+        {
+            "quantity": 2,
+            "rewards": [
+                1
+            ],
+            "probabilityTables": [
+                {
+                    "Id": 0,
+                    "probability": 1.0
+                }
+            ]
+        }
+    ]
+}

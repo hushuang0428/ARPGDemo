@@ -10,22 +10,31 @@ public class GameManager : SingletonMono<GameManager>
 
     //public Dictionary<string, BaseSpawner> spawners = new Dictionary<string, BaseSpawner>();
 
-   
+    public GameObject obj;
 
-
+    
 
     private void Awake()
     {
         base.Awake();
         player = FindObjectOfType<BaseCharacter>();
-
-        ObjectPool.Instance.GetObject(new WeaponSpawner(WeaponName.狼末));
-
+        
+        
+        
     }
 
     private void Start()
     {
+       
+        SpawnerMgr.Instance.monsterSpawners[MonsterName.QQR].UpDataSpanwer(1,transform);
+        //SpawnerMgr.Instance.monsterSpawners[MonsterName.QQR].Spawner();
+        ObjectPool.Instance.GetObject(SpawnerMgr.Instance.monsterSpawners[MonsterName.QQR]);
         
+        
+        //GameObject obj= ObjectPool.Instance.GetObject(SpawnerMgr.Instance.itemSpawners[1]);
+        //GameObject obj = ObjectPool.Instance.GetObject(new WeaponSpawner(JsonMgr.Instance.LoadJson<WeaponData>(ConstPath.CONFIG_WEAPON_DATA, "狼末.json")));
+
+
     }
 
     private void Update()
@@ -64,8 +73,8 @@ public class GameManager : SingletonMono<GameManager>
 
     public void SaveGame()
     {
-
-       
+        //测试生成存储
+        //JsonMgr.Instance.SaveByJson<MonsterData>(ConstPath.CONFIG_MONSTER_DATA,"QQR.json", obj.GetComponent<BaseMonster>().data);
 
         PlayerMainDataMgr.Instance.OnSave();
         

@@ -1,19 +1,8 @@
 {
-    "ID": 2,
-    "name": 1,
-    "usageWeaponType": 0,
-    "BackGroundStory": "",
-    "PrefabPath": "Prefab/Character/Gobin",
-    "speed": 1.0,
-    "sprintSpeed": 1.5,
-    "weaponId": 0,
-    "Level": 1,
-    "currExp": 0,
-    "MaxExp": 100,
-    "ExpMag": 1.2000000476837159,
-    "currHP": 0,
+    "currHP": 100,
     "maxHP": 100,
-    "aggressivity": 210,
+    "aggressivity": 2200,
+    "defensive": 10,
     "inherentAttributes": [
         {
             "type": 0,
@@ -25,12 +14,48 @@
         },
         {
             "type": 2,
-            "vlaue": 5.0
+            "vlaue": 1000.0
         },
         {
             "type": 3,
             "vlaue": 0.0
+        },
+        {
+            "type": 4,
+            "vlaue": 10.0
+        },
+        {
+            "type": 5,
+            "vlaue": 0.0
+        },
+        {
+            "type": 6,
+            "vlaue": 0.0
+        },
+        {
+            "type": 7,
+            "vlaue": 0.0
+        },
+        {
+            "type": 8,
+            "vlaue": 0.0
+        },
+        {
+            "type": 9,
+            "vlaue": 0.0
         }
     ],
+    "ID": 2,
+    "name": 1,
+    "usageWeaponType": 0,
+    "BackGroundStory": "",
+    "PrefabPath": "Prefab/Character/Gobin",
+    "speed": 1.0,
+    "sprintSpeed": 1.5,
+    "weaponId": 0,
+    "Level": 2,
+    "currExp": 50,
+    "MaxExp": 120,
+    "ExpMag": 1.2000000476837159,
     "growthAttributes": []
 }

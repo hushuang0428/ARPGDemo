@@ -6,7 +6,7 @@ using System;
 
 public enum AttributeType
 {
-    HP,HPP,Aggressivity,AggressivityP
+    HP,HPP,Aggressivity,AggressivityP,Defensive,DefensiveP, CriticalChance, CriticalMultiplier, PhysicalA, PhysicalR
 }
 
 [Serializable]

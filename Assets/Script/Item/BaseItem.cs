@@ -12,17 +12,11 @@ public enum ItemType
 
 
 
-
-
-
-
-
-
-
 [Serializable]
 public class BaseItem:MonoBehaviour
 {
     [SerializeField]public ItemType type;
     [SerializeField]public int ID;
+    
     
 }

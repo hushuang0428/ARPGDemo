@@ -41,18 +41,18 @@ public class PlayerMainDataMgr : SingletonMono<PlayerMainDataMgr>
     private void Awake()
     {
         base.Awake();
-
         OnLoad();
-        
 
+       
         
         //初始化所有生成器
         foreach (var character in characters)
         {
-
+            
+           
             GameObject newCharacter = new CharacterSpawner(this.transform, character).Spawner();
-
-            newCharacter.name=newCharacter.name.Replace("(Clone)", string.Empty);
+            
+            //newCharacter.name=newCharacter.name.Replace("(Clone)", string.Empty);
 
             newCharacter.SetActive(false);
 
@@ -82,18 +82,23 @@ public class PlayerMainDataMgr : SingletonMono<PlayerMainDataMgr>
         activeCharacter.SetActive(true);
         activeCharacter.transform.position = mytransform.postion;
         activeCharacter.GetComponent<Shoulder>().Yaw = mytransform.Yaw;
+        
+    }
 
+
+
+
+
+
+    private void Start()
+    {
+        CameraMgr.Instance.SetLookAndFllow(activeCharacter.transform.Find("LookAt"));
 
        
 
     }
 
-    private void Start()
-    {
-        CameraMgr.Instance.SetLookAndFllow(activeCharacter.transform.Find("LookAt"));
-        
-    }
-
+  
     [Obsolete]
     private void Update()
     {

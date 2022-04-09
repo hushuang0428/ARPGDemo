@@ -127,3 +127,41 @@ public class Serialization<T>
         this.target = target;
     }
 }
+
+
+[Serializable]
+public class Serialization<TKey,TValue>
+{
+    [SerializeField] List<TKey> keys;
+    [SerializeField] List<TValue> values;
+
+    Dictionary<TKey, TValue> target;
+
+    public Dictionary<TKey,TValue> ToDictionary() { OnAfterDeserialize(); return target; }
+
+    public Serialization(Dictionary<TKey, TValue> target)
+    {
+        this.target = target;
+        OnBeforSerialize();
+    }
+
+
+
+    void OnBeforSerialize()
+    {
+        keys = new List<TKey>(target.Keys);
+        values = new List<TValue>(target.Values);
+    }
+
+
+    void OnAfterDeserialize()
+    {
+        int count = Mathf.Min(keys.Count, values.Count);
+
+        target = new Dictionary<TKey, TValue>();
+        for (int i = 0; i < count; i++)
+        {
+            target.Add(keys[i], values[i]);
+        }
+    }
+}

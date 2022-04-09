@@ -6,7 +6,7 @@ using System;
 
 
 [Serializable]
-public class CharacterData
+public class CharacterData:BaseData
 {
 
     
@@ -33,35 +33,17 @@ public class CharacterData
     [SerializeField]private int MaxExp=100;
     public float ExpMag;
 
-
-
-    public int currHP;
-    public int maxHP;
-    public int aggressivity;
-
-
-
-    
     public event Action UpLevel;
     
-
-    [Header("固有属性")]
-    [SerializeField] public List<AttributeData> inherentAttributes = new List<AttributeData>();
-
+    
     [Header("成长属性")]
     [SerializeField] public List<AttributeData> growthAttributes = new List<AttributeData>();
 
     private Dictionary<AttributeType,float> AttributeDic = new Dictionary<AttributeType,float>();
 
-    public void InitData()
+    public override void InitData()
     {
-
-        
-        foreach(var attribute in inherentAttributes)
-        {
-            
-            UpdataData(attribute);
-        }
+        base.InitData();
         UpdataData(PlayerMainDataMgr.Instance.weaponBag[weaponId].mainAttribute);
         UpdataData(PlayerMainDataMgr.Instance.weaponBag[weaponId].secondaryAttribute);
 
@@ -71,7 +53,6 @@ public class CharacterData
     public void upDateLevel()
     {
         
-
         foreach (var attribute in growthAttributes)
         {
             UpdataData(attribute);
@@ -81,39 +62,7 @@ public class CharacterData
         
         UpLevel();
     }
-
-    public void UpdataData(AttributeData data)
-    {
-        //可以先将所有的初始化 然后再switch
-        if (!AttributeDic.ContainsKey(data.type))
-        {
-            AttributeDic.Add(data.type, data.vlaue);
-        }
-        else
-            AttributeDic[data.type] += data.vlaue;
-
-       
-        if(AttributeDic.ContainsKey(AttributeType.HP)&& AttributeDic.ContainsKey(AttributeType.HPP))
-            maxHP = (int)(AttributeDic[AttributeType.HP] * (1 + AttributeDic[AttributeType.HPP]));
-        
-        if (AttributeDic.ContainsKey(AttributeType.Aggressivity) && AttributeDic.ContainsKey(AttributeType.AggressivityP))
-            aggressivity = (int)(AttributeDic[AttributeType.Aggressivity] * (1 + AttributeDic[AttributeType.AggressivityP]));
- 
-        
-        /*
-        switch (data.type)
-        {
-           
-            case AttributeType.HP: 
-            case AttributeType.HPP:
-                maxHP = (int)(AttributeDic[AttributeType.HP] * (1 + AttributeDic[AttributeType.HPP]));break;
-            case AttributeType.Aggressivity:
-            case AttributeType.AggressivityP:
-                aggressivity= (int)(AttributeDic[AttributeType.Aggressivity] * (1 + AttributeDic[AttributeType.AggressivityP])); break;
-        }
-        */
-    }
-
+   
 
     public void GetExp(int exp)
     {
@@ -125,10 +74,5 @@ public class CharacterData
             upDateLevel();
         }
     }
-
-
-
-
-
 
 }

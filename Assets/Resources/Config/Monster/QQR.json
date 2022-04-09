@@ -1,0 +1,58 @@
+{
+    "currHP": 0,
+    "maxHP": 0,
+    "aggressivity": 0,
+    "defensive": 0,
+    "inherentAttributes": [
+        {
+            "type": 0,
+            "vlaue": 1000.0
+        },
+        {
+            "type": 1,
+            "vlaue": 0.10000000149011612
+        },
+        {
+            "type": 2,
+            "vlaue": 10.0
+        },
+        {
+            "type": 3,
+            "vlaue": 0.10000000149011612
+        },
+        {
+            "type": 4,
+            "vlaue": 10.0
+        },
+        {
+            "type": 5,
+            "vlaue": 0.10000000149011612
+        },
+        {
+            "type": 6,
+            "vlaue": 0.10000000149011612
+        },
+        {
+            "type": 7,
+            "vlaue": 0.10000000149011612
+        },
+        {
+            "type": 8,
+            "vlaue": 0.10000000149011612
+        },
+        {
+            "type": 9,
+            "vlaue": 0.10000000149011612
+        }
+    ],
+    "ID": 0,
+    "name": 0,
+    "BackGroundStory": "",
+    "PrefabPath": "Prefab/Monster/QQR",
+    "home": {
+        "instanceID": 0
+    },
+    "speed": 0.0,
+    "sprintSpeed": 0.0,
+    "Level": 0
+}

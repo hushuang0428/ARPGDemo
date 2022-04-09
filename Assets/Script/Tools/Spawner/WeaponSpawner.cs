@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class WeaponSpawner :BaseSpawner
+public class WeaponSpawner :ItemSpawner
 {
-    public Weapon weapon=new Weapon();
+    public Weapon weapon; 
 
-    public WeaponSpawner(WeaponName name)
+    
+    public WeaponSpawner(WeaponData data)
     {
-        weapon.data = JsonMgr.Instance.LoadJson<WeaponData>(ConstPath.CONFIG_WEAPON_DATA,name.ToString()+".json");
-        
-        this.name = name.ToString();
+        weapon = new Weapon();
+        weapon.data = data;
+        name = data.name.ToString();
     }
+    
+
+    
+   
 
 
     public override GameObject Spawner()
@@ -23,6 +28,9 @@ public class WeaponSpawner :BaseSpawner
         ///TODO:将config中的值初始化给新武器；
         Weapon newweapom=newWeapon.AddComponent<Weapon>();
         newweapom.data = weapon.data;
+
+        newWeapon.AddComponent<Rigidbody>().useGravity = true;
+
         return newWeapon;
     }
    

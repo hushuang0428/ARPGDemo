@@ -1,4 +1,50 @@
 {
+    "currHP": 110,
+    "maxHP": 110,
+    "aggressivity": 240,
+    "defensive": 0,
+    "inherentAttributes": [
+        {
+            "type": 0,
+            "vlaue": 100.0
+        },
+        {
+            "type": 1,
+            "vlaue": 0.10000000149011612
+        },
+        {
+            "type": 2,
+            "vlaue": 20.0
+        },
+        {
+            "type": 0,
+            "vlaue": 0.10000000149011612
+        },
+        {
+            "type": 4,
+            "vlaue": 0.0
+        },
+        {
+            "type": 5,
+            "vlaue": 0.0
+        },
+        {
+            "type": 6,
+            "vlaue": 0.0
+        },
+        {
+            "type": 7,
+            "vlaue": 0.0
+        },
+        {
+            "type": 8,
+            "vlaue": 0.0
+        },
+        {
+            "type": 9,
+            "vlaue": 0.0
+        }
+    ],
     "ID": 1,
     "name": 0,
     "usageWeaponType": 0,
@@ -11,26 +57,5 @@
     "currExp": 0,
     "MaxExp": 100,
     "ExpMag": 1.2000000476837159,
-    "currHP": 110,
-    "maxHP": 240,
-    "aggressivity": 660,
-    "inherentAttributes": [
-        {
-            "type": 0,
-            "vlaue": 100.0
-        },
-        {
-            "type": 1,
-            "vlaue": 0.10000000149011612
-        },
-        {
-            "type": 2,
-            "vlaue": 10.0
-        },
-        {
-            "type": 0,
-            "vlaue": 0.10000000149011612
-        }
-    ],
     "growthAttributes": []
 }

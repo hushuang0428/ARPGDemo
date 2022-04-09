@@ -116,11 +116,13 @@ public class BaseCharacter :MonoBehaviour
         Yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
     }
 
+    
 
     
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.CompareTag("Enemy"))
         {
 
@@ -128,17 +130,9 @@ public class BaseCharacter :MonoBehaviour
             BaseMonster enemy = other.gameObject.GetComponent<BaseMonster>();
 
             enemy.fsm.TransitionState(StateType.MGetHit);
-
-            if (enemy.damageCalc != null)
-            {
-                /*
-                int damage = damageCalc.OutputDamage(DamageType.Physical, enemy.damageCalc.baseData);
-                Debug.Log(enemy.damageCalc.baseData.currHP);
-                Debug.Log(damage);
-                //伤害为负，恢复为正
-                enemy.damageCalc.UpDataHP(-damage);
-                */
-            }
+            //伤害值传给UI
+            int damage = DamageSystem.Instance.GetDamage(this.data, enemy.data, AttributeType.PhysicalA);
+            enemy.GetDamage(damage);
         }
 
         if (other.CompareTag("Item"))

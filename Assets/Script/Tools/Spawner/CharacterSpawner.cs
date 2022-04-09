@@ -26,7 +26,8 @@ public class CharacterSpawner:BaseSpawner
        
         GameObject NewCharacter = GameObject.Instantiate<GameObject>(Resources.Load<GameObject>(data.PrefabPath));
 
-       
+        NewCharacter.name = NewCharacter.name.Replace("(Clone)", string.Empty);
+
         BaseCharacter characterScript = NewCharacter.GetComponent<BaseCharacter>();
 
         characterScript.data = this.data;

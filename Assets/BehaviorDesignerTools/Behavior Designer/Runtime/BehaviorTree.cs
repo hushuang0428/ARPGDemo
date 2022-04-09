@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace BehaviorDesigner.Runtime
@@ -7,5 +8,6 @@ namespace BehaviorDesigner.Runtime
     public class BehaviorTree : Behavior
     {
         // intentionally left blank
+        
     }
 }
