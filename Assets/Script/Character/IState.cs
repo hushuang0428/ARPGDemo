@@ -1,8 +1,8 @@
-﻿public interface IState
+﻿public abstract class IState
 { 
-    void OnEnter();
+    public abstract void OnEnter();
 
-    void OnUpDate();
+    public abstract void OnUpDate();
 
-    void OnExit();
+    public abstract void OnExit();
 }

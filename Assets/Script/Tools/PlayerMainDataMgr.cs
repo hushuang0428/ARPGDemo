@@ -27,12 +27,9 @@ public class PlayerMainDataMgr : SingletonMono<PlayerMainDataMgr>
 
 
     [SerializeField]public List<WeaponData> weaponBag = new List<WeaponData>();
+
     private Dictionary<int, Weapon> weapons = new Dictionary<int, Weapon>();
 
-    
-    
-
-    
 
     MyTransform mytransform;
 
@@ -49,30 +46,13 @@ public class PlayerMainDataMgr : SingletonMono<PlayerMainDataMgr>
         foreach (var character in characters)
         {
             
-           
             GameObject newCharacter = new CharacterSpawner(this.transform, character).Spawner();
             
             //newCharacter.name=newCharacter.name.Replace("(Clone)", string.Empty);
 
             newCharacter.SetActive(false);
 
-            
-            /*
-            if (!spawners.ContainsKey(character.name))
-            {
-                
-                spawners.Add(character.name, new CharacterSpawner(transform, character));
-            }
-           */
         }
-
-        /*
-        if(mytransform.active!=null) 
-            activeCharacter = ObjectPool.Instance.GetObject(spawners[mytransform.active],"Player");
-        else 
-            activeCharacter = ObjectPool.Instance.GetObject(spawners[CharactersName.Ghost], "Player");
-        
-        */
         
         if (mytransform.active != null)
             activeCharacter = transform.Find(mytransform.active.ToString()).gameObject;
@@ -86,15 +66,9 @@ public class PlayerMainDataMgr : SingletonMono<PlayerMainDataMgr>
     }
 
 
-
-
-
-
     private void Start()
     {
         CameraMgr.Instance.SetLookAndFllow(activeCharacter.transform.Find("LookAt"));
-
-       
 
     }
 

@@ -4,156 +4,187 @@ using UnityEngine;
 using System;
 
 
-
-
-
-/// <summary>
-/// 非idle状态不可以切换角色
-/// </summary>
-
-public class IdleState : IState
+public class NotInMissingState : IState
 {
+    public BaseCharacter character;
 
-    BaseCharacter character;
-
-    public IdleState(BaseCharacter character)
+    public NotInMissingState(BaseCharacter character)
     {
         this.character = character;
     }
 
+    public override void OnEnter()
+    {
+        
+    }
 
-    public void OnEnter()
+
+    public override void OnExit()
+    {
+        character.myFsm.Pop();
+    }
+
+    public override void OnUpDate()
+    {
+        if (Input.GetMouseButtonDown(1))
+            character.myFsm.TransitionState(StateType.Miss);
+    }
+
+}
+
+public class NotInAttackState : NotInMissingState
+{
+    public NotInAttackState(BaseCharacter character) : base(character)
+    {
+
+    }
+
+    public override void OnUpDate()
+    {
+        base.OnUpDate();
+        if (Input.GetMouseButtonDown(0))
+            character.myFsm.TransitionState(StateType.Attack);
+    }
+   
+}
+
+public class InMoveState : NotInAttackState
+{
+    public InMoveState(BaseCharacter character) : base(character) { }
+
+    public override void OnUpDate()
+    {
+        base.OnUpDate();
+
+        if (character.xVelocity == 0 && character.yVelocity == 0)
+            base.OnExit();
+    }
+   
+}
+
+public class NotInMoveState : NotInAttackState
+{
+    public NotInMoveState(BaseCharacter character) : base(character)
+    {
+
+    }
+
+    public override void OnUpDate()
+    {
+        base.OnUpDate();
+
+        if (character.xVelocity != 0 || character.yVelocity != 0)
+            character.myFsm.TransitionState(StateType.Move);
+    }
+    public override void OnExit()
+    {
+        
+    }
+}
+
+    /// <summary>
+    /// 非idle状态不可以切换角色
+    /// </summary>
+
+public class IdleState : NotInMoveState
+{
+
+        
+
+    public IdleState(BaseCharacter character) : base(character)
+    {
+            
+    }
+
+    public override void OnEnter()
     {
         character.anim.Play("Idle");
     }
 
-    public void OnUpDate()
+    public override void OnUpDate()
     {
-        if (Input.GetMouseButtonDown(1))
-            character.myFsm.TransitionState(StateType.Miss);
-
-        if (character.xVelocity != 0 || character.yVelocity != 0)
-            character.myFsm.TransitionState(StateType.Move);
-        if (Input.GetMouseButtonDown(0))
-           character.myFsm.TransitionState(StateType.Attack);
+        base.OnUpDate();
+            
     }
 
-    public void OnExit()
+    public override void OnExit()
     {
 
     }
 }
 
-
-
-public class MoveState : IState
+public class MoveState : InMoveState
 {
 
-    BaseCharacter character;
-    
-
-    public MoveState(BaseCharacter character)
+    public MoveState(BaseCharacter character):base(character)
     {
-        this.character = character;
+        
     }
 
-
-    public void OnEnter()
+    public override void OnEnter()
     {
         character.anim.Play("Move");
     }
 
-    public void OnUpDate()
+    public override void OnUpDate()
     {
-        if (Input.GetMouseButtonDown(1))
-            character.myFsm.TransitionState(StateType.Miss);
-
+        base.OnUpDate();
         character.transform.Translate(character.xVelocity * character.speed, 0f, character.yVelocity * character.speed);
-
-        if (character.xVelocity==0&& character.yVelocity==0) 
-            character.myFsm.TransitionState(StateType.Idle);
 
         if (character.IsSprint&& character.yVelocity > 0&& character.xVelocity == 0)
             character.myFsm.TransitionState(StateType.Sprint);
 
-        if (Input.GetMouseButtonDown(0))
-            character.myFsm.TransitionState(StateType.Attack);
-
-
     }
    
-
-    public void OnExit()
+    public override void OnExit()
     {
-
+        base.OnExit();
     }
 }
 
-
-public class SprintState : IState
+public class SprintState : InMoveState
 {
 
-    BaseCharacter character;
-    
-
-    public SprintState(BaseCharacter character)
+    public SprintState(BaseCharacter character):base(character)
     {
-        this.character = character;
+       
        
 
     }
 
 
-    public void OnEnter()
+    public override void OnEnter()
     {
         character.anim.Play("Sprint");
         
     }
 
-    public void OnUpDate()
+    public override void OnUpDate()
     {
-        if (Input.GetMouseButtonDown(1))
-            character.myFsm.TransitionState(StateType.Miss);
-
+        base.OnUpDate();
         character.transform.Translate(character.xVelocity * character.sprintSpeed, 0f, character.yVelocity * character.sprintSpeed);
-        if (!character.IsSprint)
-            character.myFsm.TransitionState(StateType.Move);
-        if (character.xVelocity == 0 && character.yVelocity == 0)
-            character.myFsm.TransitionState(StateType.Idle);
-        if (Input.GetMouseButtonDown(0))
-            character.myFsm.TransitionState(StateType.Attack);
-
 
     }
 
 
-    public void OnExit()
+    public override void OnExit()
     {
-       
+        base.OnExit();
     }
 }
 
 
-public class AttackState : IState
+public class AttackState : NotInMissingState
 {
 
-    BaseCharacter character;
-   
-
     public float CombatTimer;
-    
-    
 
-    public AttackState(BaseCharacter character)
+    public AttackState(BaseCharacter character) : base(character)
     {
-        this.character = character;
-        
-
 
     }
 
-
-    public void OnEnter()
+    public override void OnEnter()
     {
         character.IsAttack = true;
         character.rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
@@ -163,17 +194,16 @@ public class AttackState : IState
 
     }
 
-    public void OnUpDate()
+    public override void OnUpDate()
     {
-        if (Input.GetMouseButtonDown(1))
-            character.myFsm.TransitionState(StateType.Miss);
+        base.OnUpDate();
 
         character.transform.Translate(0f,0f,character.speed*0.1f);
         CombatTimer -= Time.deltaTime;
 
         if (CombatTimer<0&& character.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.8f)
         {
-            character.myFsm.TransitionState(StateType.Idle);
+            OnExit();
         }
         
             
@@ -186,11 +216,13 @@ public class AttackState : IState
             
     }
 
-    public void OnExit()
+    public override void OnExit()
     {
+       
         character.IsAttack = false;
         character.rigidbody.constraints = RigidbodyConstraints.None;
         character.rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        base.OnExit();
     }
 }
 
@@ -203,14 +235,10 @@ public class MissState : IState
     public MissState(BaseCharacter character)
     {
         this.character = character;
-        
-
-        
-        
     }
 
 
-    public void OnEnter()
+    public override void OnEnter()
     {
         character.anim.Play("Miss");
 
@@ -218,19 +246,22 @@ public class MissState : IState
         character.IsMiss = true;
     } 
 
-    public void OnUpDate()
+    public override void OnUpDate()
     {
         character.transform.Translate(0f, 0f,  1f* character.speed);
 
+        //使用下推机
         if (character.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f)
-            character.myFsm.TransitionState(StateType.Idle);
+            OnExit();
+            //character.myFsm.TransitionState(StateType.Idle);
 
 
     }
 
-    public void OnExit()
+    public override void OnExit()
     {
         character.IsMiss = false;
+        character.myFsm.Pop();
     }
 }
 
@@ -245,29 +276,24 @@ public class GetHitState : IState
     }
 
 
-    public void OnEnter()
+    public override void OnEnter()
     {
         
 
 
     }
 
-    public void OnUpDate()
+    public override void OnUpDate()
     {
         if (character.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f)
-            character.myFsm.TransitionState(StateType.Idle);
+            OnExit();
     }
 
-    public void OnExit()
+    public override void OnExit()
     {
-
+        character.myFsm.Pop();
     }
 }
-
-
-
-
-
 
 
 /// <summary>
@@ -285,7 +311,7 @@ public class MIdleState : IState
     }
 
 
-    public void OnEnter()
+    public override void OnEnter()
     {
 
         
@@ -293,24 +319,16 @@ public class MIdleState : IState
 
     }
 
-    public void OnUpDate()
+    public override void OnUpDate()
     {
-        /*
-        if (monster.baseData.currHP <= 0)
-        {
-            
-            monster.fsm.TransitionState(StateType.MDead);
-        }*/
+        
     }
 
-    public void OnExit()
+    public override void OnExit()
     {
 
     }
 }
-
-
-
 
 
 public class MDeadState : IState
@@ -326,7 +344,7 @@ public class MDeadState : IState
     }
 
 
-    public void OnEnter()
+    public override void OnEnter()
     {
         monster.bt.enabled = false;
 
@@ -338,7 +356,7 @@ public class MDeadState : IState
         
     }
 
-    public void OnUpDate()
+    public override void OnUpDate()
     {
         if(monster.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99f)
         {
@@ -349,7 +367,7 @@ public class MDeadState : IState
         }
     }
 
-    public void OnExit()
+    public override void OnExit()
     {
 
     }
@@ -366,20 +384,20 @@ public class MGetHitState : IState
     }
 
 
-    public void OnEnter()
+    public override void OnEnter()
     {
         monster.anim.StopPlayback();
         monster.anim.Play("GetHit");
 
     }
 
-    public void OnUpDate()
+    public override void OnUpDate()
     {
         if (monster.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.8f)
             monster.fsm.TransitionState(StateType.MIdle);
     }
 
-    public void OnExit()
+    public override void OnExit()
     {
 
     }

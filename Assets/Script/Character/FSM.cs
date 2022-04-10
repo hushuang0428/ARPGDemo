@@ -13,9 +13,9 @@ public enum StateType
 public class FSM 
 {
 
-    
+    private Stack<IState> stateSrack = new Stack<IState>();
 
-    private IState currentstate;
+    //private IState currentstate;
 
     
 
@@ -30,14 +30,30 @@ public class FSM
     
     public void OnTrick()
     {
-        currentstate?.OnUpDate();
+        stateSrack.Peek()?.OnUpDate();
     }
     
     public void TransitionState(StateType type)
     {
+        /*
         if (currentstate != null)
             currentstate?.OnExit();
         currentstate = states[type];
         currentstate?.OnEnter();
+        */
+       
+        if (stateSrack.Count > 0)
+        {
+            stateSrack.Peek()?.OnExit();
+        }
+        stateSrack.Push(states[type]);
+        stateSrack.Peek()?.OnEnter();
+    }
+
+    public void Pop()
+    {
+        stateSrack.Pop();
+        stateSrack.Peek()?.OnEnter();
+        
     }
 }
